@@ -19,7 +19,7 @@ txt_logo_4 = "\t\t | |    / _` | '_ \    / /\ \ / __/ __| / __| __|"
 txt_logo_5 = "\t\t | |___| (_| | |_) |  / ____ \\__ \__ \ \__ \ |_"
 txt_logo_6 = "\t\t  \_____\__,_|_.__/  /_/    \_\___/___/_|___/\__|"
 txt_logo_7 = "\t\t\tSolution provided by FERGARCAT@GITHUB\n"
-txt_welcome = "\t\t\t*** Welcome to Cab Assist! ***\nThis application is developed for educational purpose within the AI Bootcamp @FactoríaF5 \n""\nThis app offers taxi drivers a light and reliable solution to trace their rides.\nYou will be able to keep record of all your rides, change your fees and charge your customers.\n\n\t\t\t*** IMPLEMENTED FEATURES ***\n\t\t\tBASIC LEVEL:\n\t\t\t- Shows welcome message(this).\n\t\t\t- Start a new ride.\n\t\t\t- Keep record of the waiting fare.\n\t\t\t- Keep record of the raiding fare.\n\t\t\t- End ride and calculate total fare.\n\t\t\t- Start a new ride without closing the app.\n\t\t\tMEDIUM LEVEL:\n\t\t\t- Setup Fee Options.\n\t\t\tADVANCED LEVEL:\n\t\t\t- Use of OOP code."
+txt_welcome = "\t\t\t*** Welcome to Cab Assist! ***\nThis application is developed for educational purpose within the AI Bootcamp @FactoríaF5 \n""\nThis app offers taxi drivers a light and reliable solution to trace their rides.\nYou will be able to keep record of all your rides, change your fees and charge your customers.\n\n\t\t\t*** IMPLEMENTED FEATURES ***\n\t\t\tBASIC LEVEL:\n\t\t\t- Shows welcome message(this).\n\t\t\t- Start a new ride.\n\t\t\t- Keep record of the waiting fare.\n\t\t\t- Keep record of the riding fare.\n\t\t\t- End ride and calculate total fare.\n\t\t\t- Start a new ride without closing the app.\n\t\t\tMEDIUM LEVEL:\n\t\t\t- Setup Fee Options.\n\t\t\tADVANCED LEVEL:\n\t\t\t- Use of OOP code."
 txt_options = "\n\t\t\tPlease select one OPTION.\n"
 txt_menu_home = "\t\t\t(R) To Start a New Ride\n\n\t\t\t(S) To SETUP Fees\n\n\t\t\t(Q) To Quit\n\n"
 txt_msg_wait = "\t\t\t(D) Press To DRIVE\n\n\t\t\t(E) To END ride\n\n"
@@ -108,7 +108,7 @@ def display_last_rides():
         minRide = 0
         maxRide = len(Rides)-1
     else:
-        minRide = maxRide - 2
+        minRide = len(Rides) - 3  # Esto asegura que minRide esté correctamente calculad
         maxRide = len(Rides)-1
 
     i = maxRide
