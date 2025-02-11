@@ -10,6 +10,7 @@ import os
 import sys
 
 
+
 Rides = []
 txt_logo_1 = "\t\t   _____      _                        _     _   "
 txt_logo_2 = "\t\t  / ____|    | |         /\           (_)   | |  "
@@ -17,10 +18,10 @@ txt_logo_3 = "\t\t | |     __ _| |__      /  \   ___ ___ _ ___| |_ "
 txt_logo_4 = "\t\t | |    / _` | '_ \    / /\ \ / __/ __| / __| __|"
 txt_logo_5 = "\t\t | |___| (_| | |_) |  / ____ \\__ \__ \ \__ \ |_"
 txt_logo_6 = "\t\t  \_____\__,_|_.__/  /_/    \_\___/___/_|___/\__|"
-txt_logo_7 = "\t\t\t  Solution provided by FERGARCAT\n"
-txt_welcome = "\t\t\t*** Welcome to Cab Assist! *** \n""\n\t\t\tPlease select one OPTION.\n"
+txt_logo_7 = "\t\t\tSolution provided by FERGARCAT@GITHUB\n"
+txt_welcome = "\t\t\t*** Welcome to Cab Assist! ***\nThis application is developed for educational purpose within the AI Bootcamp @FactoríaF5 \n""\nThis app offers taxi drivers a light and reliable solution to trace their rides.\nYou will be able to keep record of all your rides, change your fees and charge your customers.\n\n\t\t\t*** IMPLEMENTED FEATURES ***\n\t\t\tBASIC LEVEL:\n\t\t\t- Shows welcome message(this).\n\t\t\t- Start a new ride.\n\t\t\t- Keep record of the waiting fare.\n\t\t\t- Keep record of the raiding fare.\n\t\t\t- End ride and calculate total fare.\n\t\t\t- Start a new ride without closing the app.\n\t\t\tMEDIUM LEVEL:\n\t\t\t- Setup Fee Options.\n\t\t\tADVANCED LEVEL:\n\t\t\t- Use of OOP code."
 txt_options = "\n\t\t\tPlease select one OPTION.\n"
-txt_menu_welcome = "\t\t\t(R) To Start a New Ride\n\n\t\t\t(S) To SETUP Fees\n\n\t\t\t(Q) To Quit\n\n"
+txt_menu_home = "\t\t\t(R) To Start a New Ride\n\n\t\t\t(S) To SETUP Fees\n\n\t\t\t(Q) To Quit\n\n"
 txt_msg_wait = "\t\t\t(D) Press To DRIVE\n\n\t\t\t(E) To END ride\n\n"
 txt_msg_drive = "\t\t\tPress S to STOP driving.\n\t\t\tRide cant't be finished while driving."
 txt_quit = "***Thanks for using Cab Assist. We are looking to see you again soon!***"
@@ -74,7 +75,7 @@ def formatTime(t):
   return(formatted_time)
 
 #Displays app logo
-def logo():
+def display_logo():
     os.system('cls')
     print('\n\n')
     print(f'{txt_logo_1}')
@@ -91,7 +92,7 @@ def display_fees():
 #Displays wrong input message
 def display_wrong_input():
     os.system('cls')
-    logo()
+    display_logo()
     print(f'{txt_wrong_input}')
     time.sleep(2)
 #Displays current drive data
@@ -120,15 +121,14 @@ def total_fare(ride : Ride):
           return(round((ride.driveMeter * drivefee) + (ride.waitMeter * waitfee),2))
 
 #Displays welcome menu
-def menu_welcome():
+def menu_home():
     os.system('cls')
-    logo()
+    display_logo()
     display_fees()
-    print(f'{txt_welcome}')
     if Rides != []:
         display_last_rides()
     print(f'{txt_options}')
-    option = input(f'{txt_menu_welcome}').upper()
+    option = input(f'{txt_menu_home}').upper()
     if option == "R":
           ride = Ride()
           menu_wait(ride)
@@ -138,14 +138,14 @@ def menu_welcome():
           exit_program()
     else:
           display_wrong_input()
-          menu_welcome()
+          menu_home()
 
 # Displays waiting menu
 def menu_wait(ride : Ride):
     waitTimer = Timer()
     while True:
         os.system('cls')
-        logo()
+        display_logo()
         display_fees()
         display_drive(ride)
         print(f'{txt_options}')
@@ -166,7 +166,7 @@ def menu_drive(ride : Ride):
   driveTimer = Timer()
   while True:
       os.system('cls')
-      logo()
+      display_logo()
       display_fees()
       display_drive(ride)
       print(f'{txt_options}')
@@ -181,18 +181,18 @@ def menu_drive(ride : Ride):
 #Displays end of ride message and total fare to pay
 def menu_end(ride : Ride):
         os.system('cls')
-        logo()
+        display_logo()
         display_fees()
         display_drive(ride)
         print(f'{txt_end} {ride.Fare} ')
         print(f'{txt_press_enter}')
         input()
-        menu_welcome()
+        menu_home()
 
 #Displays configuration options
 def menu_setup():
     os.system('cls')
-    logo()
+    display_logo()
     display_fees()
     while True:
         option = input(f'{txt_msg_setup}').upper()
@@ -215,17 +215,26 @@ def menu_setup():
                     display_wrong_input()
                     menu_setup()
         elif option == "M":
-            menu_welcome()
+            menu_home()
         else:
             display_wrong_input()
             menu_setup()    
 
 #Exits the program          
 def exit_program():
-  logo()
+  display_logo()
   print(f'\n\n\t{txt_quit}\n\n')
   time.sleep(3)
   quit()
+
+# Shows welcome message
+def menu_welcome():
+    os.system('cls')
+    display_logo()
+    print(f'{txt_welcome}')
+    print(f'{txt_press_enter}')
+    input()
+    menu_home()
 
 #Main function
 def main():
