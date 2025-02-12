@@ -8,7 +8,8 @@
 import time
 import os
 import sys
-
+from .ride import Ride
+from .timer import Timer
 
 
 Rides = []
@@ -37,36 +38,14 @@ txt_press_enter = "\n\t\t\tPress any KEY to continue..."
 txt_last_drives = "\tLast 3 DRIVES: \n"
 txt_current_drive_fee = "\t\tCurrent Drive Fee: "
 txt_current_wait_fee = " Current Wait Fee: "
-txt_msg_setup = "\n\n\t\t\t*** Setup Fees ***\n\n\t\t\t (D) To change Drive Fee\n\t\t\t(W) To change Wait Fee\n\t\t\t(M) Back to MAIN Menu\n"
+txt_msg_setup = "\n\n\t\t\t*** Setup Fees ***\n\n\t\t\t(D) To change Drive Fee\n\t\t\t(W) To change Wait Fee\n\t\t\t(M) Back to MAIN Menu\n"
 txt_enter_drive_fee = "\n\n\t\t\tEnter new Drive Fee: "
 txt_enter_wait_fee = "\n\n\t\t\tEnter new Wait Fee: "
 waitfee = 0.02
 drivefee = 0.05
 
 
-### Ride Class for every ride the cab drives
-class Ride():
-    def __init__(self) -> None:
-        self.startTime = time.time()
-        self.endTime : time.time = None
-        self.driveMeter = 0
-        self.waitMeter = 0
-        self.Fare : float = 0.00
-        self.waitcost = waitfee
-        self.drivecost = drivefee
-    def start(self,t : time.time):
-        self.startTime = t
-    def stop(self,t: time.time):
-        self.stopTime = t
 
-# Timer Class to measure ride periods
-class Timer:
-    def __init__(self):
-        self.start = time.perf_counter()
-    def restart(self):
-        self.start = time.perf_counter()
-    def get_time(self):
-        return time.perf_counter() - self.start
 
 # Def formatTime. Convert float time values to HH:MM:SS format
 def formatTime(t):
