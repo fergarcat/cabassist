@@ -49,3 +49,9 @@ Features to be implemented:
 - Python<br>
 - Git y GitHub for version control<br>
 - Trello for agile project management. Click [here](https://trello.com/b/UmB2dVmd/cabassist) to visit the board.
+- DrawIo for [flowchart](https://github.com/fergarcat/cabassist/blob/main/CabAssist-FlowChart.png) design.
+
+
+<BR><BR>
+![CabAssit Flowchart](https://github.com/fergarcat/cabassist/blob/main/CabAssist-FlowChart.svg)
+
