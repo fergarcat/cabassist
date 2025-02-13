@@ -1,4 +1,5 @@
 # Timer Class to measure ride periods
+import time
 class Timer:
     def __init__(self):
         self.start = time.perf_counter()
