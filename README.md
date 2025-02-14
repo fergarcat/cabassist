@@ -34,10 +34,11 @@ Features to be implemented:
 🟡 **MEDIUM**
 
 - Add an option to change current fees.
+- Keep record of historical rides in a .csv file
  
 🟠 **ADVANCED**
 
-- Refactor code to use OOP approach. Since Ride() and Timer() class are added and used in the code.
+- Refactor code to use OOP approach (part of it at least): Ride() and Timer() class are added and used in the code.
   
 🔴 **EXPERT**
 
