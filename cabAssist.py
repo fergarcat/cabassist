@@ -75,10 +75,12 @@ def menu_wait():
             currentRide.waitMeter = currentRide.waitMeter + waitTimer.get_time()
             menu_drive()
         elif option == "E":
+            currentRide.waitMeter = currentRide.waitMeter + waitTimer.get_time()
             menu_end()
         else:
             menu_display('wrong',currentRide,Rides,waitfee,drivefee)
             menu_wait()
+    
 
 #Displays driving menu
 def menu_drive():
@@ -108,7 +110,7 @@ def menu_end():
         global driveTimer
         currentRide.Fare = total_fare(currentRide, waitfee, drivefee)
         currentRide.endTime = time.time()
-        Rides.append(currentRide)
+        save_data(currentRide)
         menu_display('end',currentRide,Rides,waitfee,drivefee)
         menu_home()
 
