@@ -35,15 +35,6 @@ def main():
     menu_welcome()
     input()
 
-
-#Exits the program          
-def exit_program():
-  print(f'\n\n\t{txt_quit}\n\n')
-  time.sleep(3)
-  quit()
-
-
-
 #Displays home menu
 def menu_home():
     global Rides
@@ -52,15 +43,14 @@ def menu_home():
     global drivefee
     global waitTimer
     global driveTimer
+    
     option = menu_display('home',currentRide,Rides,waitfee,drivefee)
     
     if option == "R":
           
-          currentRide = Ride()
-          waitTimer = Timer()
-          driveTimer = Timer()
-          driveTimer.restart
-          waitTimer.restart
+          currentRide.reset(waitfee,drivefee)
+          waitTimer.restart()
+          driveTimer.restart()
           menu_wait()
     if option == "S":
           menu_setup()
@@ -78,6 +68,7 @@ def menu_wait():
     global drivefee
     global waitTimer
     global driveTimer
+    waitTimer.restart()
     while True:
         option = menu_display('wait',currentRide,Rides,waitfee,drivefee)
         if option == "D":
@@ -97,6 +88,7 @@ def menu_drive():
     global drivefee
     global waitTimer
     global driveTimer
+    driveTimer.restart()
     while True:
         option = menu_display('drive',currentRide,Rides,waitfee,drivefee)
         if option == "S":
@@ -118,7 +110,6 @@ def menu_end():
         currentRide.endTime = time.time()
         Rides.append(currentRide)
         menu_display('end',currentRide,Rides,waitfee,drivefee)
-        currentRide.reset(waitfee,drivefee)
         menu_home()
 
 #Displays configuration options
@@ -165,6 +156,11 @@ def menu_welcome():
     menu_display('welcome',currentRide,Rides,waitfee,drivefee)
     menu_home()
 
+#Exits the program          
+def exit_program():
+  print(f'\n\n\t{txt_quit}\n\n')
+  time.sleep(3)
+  quit()
 
 
 

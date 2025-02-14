@@ -25,10 +25,9 @@ def menu_display(menu,currentRide, Rides, waitfee, drivefee):
             input()
             return
         elif menu == 'home':
-                  
                   display_fees(waitfee, drivefee)
-                  if Rides != []:
-                         display_last_rides(Rides)
+                  #if Rides != []:
+                  #       display_last_rides(Rides)
                   print(f'{txt_options}')
                   option = input(f'{txt_menu_home}').upper()
                   return option
