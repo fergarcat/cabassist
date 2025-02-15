@@ -171,6 +171,4 @@ def exit_program():
   time.sleep(3)
   quit()
 
-
-
 main()

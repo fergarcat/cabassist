@@ -35,6 +35,7 @@ Features to be implemented:
 
 - Add an option to change current fees.
 - Keep record of historical rides in a .csv file
+- Unit tests with pytest added.
  
 🟠 **ADVANCED**
 
