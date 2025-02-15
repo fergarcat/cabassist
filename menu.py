@@ -8,7 +8,7 @@ from texts import *
 from definitions import *
 
 
-def menu_display(menu,currentRide, Rides, waitfee, drivefee):
+def menu_display(menu,currentRide, Rides, waitfee, drivefee, file):
         os.system('cls')
         print('\n')
         print(f'{txt_logo_1}')
@@ -26,8 +26,6 @@ def menu_display(menu,currentRide, Rides, waitfee, drivefee):
             return
         elif menu == 'home':
                   display_fees(waitfee, drivefee)
-                  #if Rides != []:
-                  #       display_last_rides(Rides)
                   print(f'{txt_options}')
                   option = input(f'{txt_menu_home}').upper()
                   return option
@@ -43,6 +41,10 @@ def menu_display(menu,currentRide, Rides, waitfee, drivefee):
                      print(f'{txt_options}')
                      option = input(f'{txt_msg_drive}').upper()
                      return option
+        elif menu == 'list':
+                        display_last_rides(file)
+                        print(f'{txt_press_enter}')
+                        input()
         elif menu == 'setup':
                      display_fees(waitfee, drivefee)
                      print(f'{txt_options}')
