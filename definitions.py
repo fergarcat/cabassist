@@ -2,6 +2,8 @@ from texts import *
 import time
 import os
 import pandas as pd
+from auth import authenticate_user
+import getpass
 
 #Displays last 3 rides
 def display_last_rides(filename):
@@ -53,3 +55,28 @@ def save_data(currentRide,filename):
         print(txt_error_saving_data)
         print(txt_press_enter)
         input()
+
+# Login
+def login():
+    global currentUser
+    username = input(f'{txt_enter_username} ')
+    currentUser = username
+    password = getpass.getpass(f'{txt_enter_password} ')
+    return authenticate_user(username, password)
+
+def logo_display():
+    os.system('cls')
+    print(f'{txt_logo_1}')
+    print(f'{txt_logo_2}')
+    print(f'{txt_logo_3}')
+    print(f'{txt_logo_4}')
+    print(f'{txt_logo_5}')
+    print(f'{txt_logo_6}')
+    print(f'{txt_logo_7}')
+
+#Exits the program          
+def exit_program():
+  print(f'\n\n\t{txt_quit}\n\n')
+  time.sleep(3)
+  quit()
+

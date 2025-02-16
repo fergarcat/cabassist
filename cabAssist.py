@@ -1,20 +1,10 @@
-#    _____      _                        _     _
-#   / ____|    | |         /\           (_)   | |
-#  | |     __ _| |__      /  \   ___ ___ _ ___| |_
-#  | |    / _` | '_ \    / /\ \ / __/ __| / __| __|
-#  | |___| (_| | |_) |  / ____ \\__ \__ \ \__ \ |_
-#   \_____\__,_|_.__/  /_/    \_\___/___/_|___/\__|
-
 import time
-import os
-import sys
 from ClassRide import *
 from ClassTimer import *
 from texts import *
 from menu import *
 
-
-
+#Global variables
    
 Rides = []
 currentRide = Ride()
@@ -26,28 +16,13 @@ filename = 'rides.csv'
 
 #Main function
 def main():
-    global Rides
-    global currentRide
-    global waitfee
-    global drivefee
-    global waitTimer
-    global driveTimer
     menu_welcome()
     input()
 
 #Displays home menu
 def menu_home():
-    global Rides
-    global currentRide
-    global waitfee
-    global drivefee
-    global waitTimer
-    global driveTimer
-    
     option = menu_display('home',currentRide,Rides,waitfee,drivefee, filename)
-    
     if option == "R":
-          
           currentRide.reset(waitfee,drivefee)
           waitTimer.restart()
           driveTimer.restart()
@@ -64,12 +39,6 @@ def menu_home():
 
 # Displays waiting menu
 def menu_wait():
-    global Rides
-    global currentRide
-    global waitfee
-    global drivefee
-    global waitTimer
-    global driveTimer
     waitTimer.restart()
     while True:
         option = menu_display('wait',currentRide,Rides,waitfee,drivefee, filename)
@@ -82,16 +51,9 @@ def menu_wait():
         else:
             menu_display('wrong',currentRide,Rides,waitfee,drivefee, filename)
             menu_wait()
-    
-
-#Displays driving menu
+ 
+ #Displays driving menu
 def menu_drive():
-    global Rides
-    global currentRide
-    global waitfee
-    global drivefee
-    global waitTimer
-    global driveTimer
     driveTimer.restart()
     while True:
         option = menu_display('drive',currentRide,Rides,waitfee,drivefee, filename)
@@ -104,12 +66,6 @@ def menu_drive():
 
 #Displays end of currentRide message and total fare to pay
 def menu_end():
-        global Rides
-        global currentRide
-        global waitfee
-        global drivefee
-        global waitTimer
-        global driveTimer
         currentRide.Fare = total_fare(currentRide, waitfee, drivefee)
         currentRide.endTime = time.time()
         save_data(currentRide,filename)
@@ -118,12 +74,8 @@ def menu_end():
 
 #Displays configuration options
 def menu_setup():
-    global Rides
-    global currentRide
-    global waitfee
     global drivefee
-    global waitTimer
-    global driveTimer
+    global waitfee
     while True:
         option = menu_display('setup',currentRide,Rides,waitfee,drivefee, filename)
         if option == "D":
@@ -149,26 +101,16 @@ def menu_setup():
             menu_setup()    
 
 
+
 # Shows welcome message
 def menu_welcome():
-    global Rides
-    global currentRide
-    global waitfee
-    global drivefee
-    global waitTimer
-    global driveTimer
     menu_display('welcome',currentRide,Rides,waitfee,drivefee, filename)
     menu_home()
 
+# Shows last rides
 def menu_list():
     global filename
     menu_display('list',currentRide,Rides,waitfee,drivefee, filename)
     menu_home()    
-
-#Exits the program          
-def exit_program():
-  print(f'\n\n\t{txt_quit}\n\n')
-  time.sleep(3)
-  quit()
 
 main()

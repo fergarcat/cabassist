@@ -1,29 +1,37 @@
 # Menu() Class
 import time
 import os
-import sys
 from ClassRide import *
 from ClassTimer import *
 from texts import *
 from definitions import *
+from auth import *
+
+
 
 
 def menu_display(menu,currentRide, Rides, waitfee, drivefee, file):
-        os.system('cls')
+        logo_display()
         print('\n')
-        print(f'{txt_logo_1}')
-        print(f'{txt_logo_2}')
-        print(f'{txt_logo_3}')
-        print(f'{txt_logo_4}')
-        print(f'{txt_logo_5}')
-        print(f'{txt_logo_6}')
-        print(f'{txt_logo_7}')
 
         if menu == 'welcome':
-            print(f'{txt_welcome}')
-            print(f'{txt_press_enter}')
-            input()
-            return
+            i = 0
+            while i < 3:  # Permitir hasta 3 intentos
+                if login():
+                    print(f'{txt_welcome}')
+                    print(f'{txt_press_enter}')
+                    input()
+                    return  # Sale de la función si el login es exitoso
+                else:
+                    i += 1
+                    os.system('cls')
+                    print('\n')
+                    logo_display()
+                    print(f'{txt_login_incorrect} {3 - i} attempts left')
+            print(f'{txt_acces_denied}')  # Si se agotan los intentos
+            exit_program()
+
+
         elif menu == 'home':
                   display_fees(waitfee, drivefee)
                   print(f'{txt_options}')
@@ -50,7 +58,6 @@ def menu_display(menu,currentRide, Rides, waitfee, drivefee, file):
                      print(f'{txt_options}')
                      option = input(f'{txt_msg_setup}').upper()
                      return option
-
         elif menu == 'end':
                      display_fees(waitfee, drivefee)
                      display_drive(currentRide)
