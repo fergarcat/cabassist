@@ -1,34 +1,72 @@
+import unittest
+from unittest.mock import patch, call
+import cabAssist as ca
+import auth
 
-# Primero debemos identificar las funciones clave que requieren pruebas. Algunas funciones candidatas son:
+class TestMenuUsers(unittest.TestCase):
 
-# total_fare(currentRide, waitfee, drivefee): Si existe en otro módulo, podemos importarla y probar su cálculo.
+    @patch('cabAssist.menu_display')
+    @patch('cabAssist.input')
+    @patch('cabAssist.getpass.getpass')
+    def test_add_user_success(self, mock_getpass, mock_input, mock_menu_display):
+        mock_menu_display.side_effect = ['A', 'M']
+        mock_input.side_effect = ['testuser']
+        mock_getpass.side_effect = ['password123', 'password123']
 
-# Ride y Timer: Necesitamos importar las clases y probar su funcionalidad.
+        with patch('auth.register_user') as mock_register_user:
+            ca.menu_users()
+            mock_register_user.assert_called_once_with('testuser', 'password123')
+            mock_menu_display.assert_any_call('users')
+            mock_menu_display.assert_any_call('wrong')
 
-import pytest
-from cabAssist import total_fare, Ride, Timer
+    @patch('cabAssist.menu_display')
+    @patch('cabAssist.input')
+    @patch('cabAssist.getpass.getpass')
+    def test_add_user_password_mismatch(self, mock_getpass, mock_input, mock_menu_display):
+        mock_menu_display.side_effect = ['A', 'M']
+        mock_input.side_effect = ['testuser']
+        mock_getpass.side_effect = ['password123', 'password456']
 
-@pytest.fixture
-def ride():
-    return Ride()
+        with patch('auth.register_user') as mock_register_user:
+            ca.menu_users()
+            mock_register_user.assert_not_called()
+            mock_menu_display.assert_any_call('wrong')
 
-def test_total_fare(ride):
-    waitfee = 0.02
-    drivefee = 0.05
-    ride.waitMeter = 10  # Simulando 10 minutos de espera
-    ride.driveMeter = 20  # Simulando 20 minutos de conducción
-    fare = total_fare(ride, waitfee, drivefee)
-    expected_fare = (10 * waitfee) + (20 * drivefee)
-    assert fare == expected_fare, f"Se esperaba {expected_fare}, pero se obtuvo {fare}"
+    @patch('cabAssist.menu_display')
+    @patch('cabAssist.input')
+    def test_delete_user_confirm(self, mock_input, mock_menu_display):
+        mock_menu_display.side_effect = ['D', 'M']
+        mock_input.side_effect = ['testuser', 'Y']
 
-def test_timer():
-    timer = Timer()
-    timer.restart()
-    assert timer.get_time() >= 0, "El tiempo debe ser mayor o igual a cero"
+        with patch('auth.delete_user') as mock_delete_user:
+            ca.menu_users()
+            mock_delete_user.assert_called_once_with('testuser')
+            mock_menu_display.assert_any_call('users')
+            mock_menu_display.assert_any_call('wrong')
 
-def test_ride_reset(ride):
-    ride.reset(0.02, 0.05)
-    assert ride.waitMeter == 0
-    assert ride.driveMeter == 0
-    assert ride.Fare == 0
+    @patch('cabAssist.menu_display')
+    @patch('cabAssist.input')
+    def test_delete_user_no_confirm(self, mock_input, mock_menu_display):
+        mock_menu_display.side_effect = ['D', 'M']
+        mock_input.side_effect = ['testuser', 'N']
 
+        with patch('auth.delete_user') as mock_delete_user:
+            ca.menu_users()
+            mock_delete_user.assert_not_called()
+            mock_menu_display.assert_any_call('users')
+            mock_menu_display.assert_any_call('wrong')
+
+    @patch('cabAssist.menu_display')
+    @patch('cabAssist.input')
+    def test_list_users(self, mock_input, mock_menu_display):
+        mock_menu_display.side_effect = ['L', 'M']
+        mock_input.side_effect = ['']
+
+        with patch('auth.list_users') as mock_list_users:
+            ca.menu_users()
+            mock_list_users.assert_called_once()
+            mock_menu_display.assert_any_call('users')
+            mock_menu_display.assert_any_call('wrong')
+
+if __name__ == '__main__':
+    unittest.main()

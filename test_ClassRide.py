@@ -1,59 +1,42 @@
-# Vamos a probar los métodos principales de la clase Ride, incluyendo start(), stop(), reset() y las propiedades iniciales.
-import pytest
+import unittest
 import time
 from ClassRide import Ride
 
-# Prueba de inicialización de Ride
-def test_ride_initialization():
-    ride = Ride()
-    assert ride.startTime > 0, "El tiempo de inicio no debería ser cero"
-    assert ride.endTime is None, "endTime debería inicializarse como None"
-    assert ride.driveMeter == 0, "driveMeter debería ser 0 al inicio"
-    assert ride.waitMeter == 0, "waitMeter debería ser 0 al inicio"
-    assert ride.Fare == 0.00, "Fare debería ser 0.00 al inicio"
-    assert ride.waitcost == 0, "waitcost debería ser 0 al inicio"
-    assert ride.drivecost == 0, "drivecost debería ser 0 al inicio"
+class TestRide(unittest.TestCase):
 
-# Prueba del método start()
-def test_ride_start():
-    ride = Ride()
-    new_time = 1700000000  # Simulamos un timestamp
-    ride.start(new_time)
-    assert ride.startTime == new_time, "startTime no se actualizó correctamente"
+    def setUp(self):
+        self.ride = Ride()
 
-# Prueba del método stop()
-def test_ride_stop():
-    ride = Ride()
-    new_time = 1700003600  # Simulamos un timestamp más adelante
-    ride.stop(new_time)
-    assert hasattr(ride, 'stopTime'), "El atributo stopTime debería existir"
-    assert ride.stopTime == new_time, "stopTime no se actualizó correctamente"
+    def test_initialization(self):
+        self.assertIsInstance(self.ride.startTime, float)
+        self.assertIsNone(self.ride.endTime)
+        self.assertEqual(self.ride.driveMeter, 0)
+        self.assertEqual(self.ride.waitMeter, 0)
+        self.assertEqual(self.ride.Fare, 0.00)
+        self.assertEqual(self.ride.waitcost, 0)
+        self.assertEqual(self.ride.drivecost, 0)
 
-# Prueba del método reset()
-def test_ride_reset():
-    ride = Ride()
-    ride.driveMeter = 50
-    ride.waitMeter = 30
-    ride.Fare = 20.0
-    ride.reset(0.02, 0.05)
+    def test_start(self):
+        t = time.time()
+        self.ride.start(t)
+        self.assertEqual(self.ride.startTime, t)
 
-    assert ride.driveMeter == 0, "driveMeter debería reiniciarse a 0"
-    assert ride.waitMeter == 0, "waitMeter debería reiniciarse a 0"
-    assert ride.Fare == 0.00, "Fare debería reiniciarse a 0.00"
-    assert ride.waitcost == 0.02, "waitcost debería establecerse correctamente"
-    assert ride.drivecost == 0.05, "drivecost debería establecerse correctamente"
-    assert ride.startTime > 0, "startTime debería reiniciarse"
+    def test_stop(self):
+        t = time.time()
+        self.ride.stop(t)
+        self.assertEqual(self.ride.stopTime, t)
 
-# Explicación de las pruebas
-# test_ride_initialization()
+    def test_reset(self):
+        waitfee = 0.02
+        drivefee = 0.05
+        self.ride.reset(waitfee, drivefee)
+        self.assertIsInstance(self.ride.startTime, float)
+        self.assertIsNone(self.ride.endTime)
+        self.assertEqual(self.ride.driveMeter, 0)
+        self.assertEqual(self.ride.waitMeter, 0)
+        self.assertEqual(self.ride.Fare, 0.00)
+        self.assertEqual(self.ride.waitcost, waitfee)
+        self.assertEqual(self.ride.drivecost, drivefee)
 
-# Verifica que los atributos de Ride se inicialicen correctamente.
-# test_ride_start()
-
-# Confirma que start() actualiza startTime correctamente.
-# test_ride_stop()
-
-# Verifica que stop() cree stopTime y lo actualice.
-# test_ride_reset()
-
-# Comprueba que reset() reinicia correctamente los atributos y asigna nuevas tarifas de espera y conducción.
+if __name__ == '__main__':
+    unittest.main()
