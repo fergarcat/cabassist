@@ -44,12 +44,11 @@ Features to be implemented:
 - [X] Authentication required and users management.
 - [X] Develop GUI
   
-🔴 **EXPERT**
+🔴 **EXPERT** None achieved 😓
 
-None achieved 😓
-- [] DB integration
-- [] Docker the app
-- [] Web version implementation
+- [ ] DB integration
+- [ ] Docker the app
+- [ ] Web version implementation
  
 🛠️ **TOOLS**
 
