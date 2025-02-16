@@ -25,26 +25,31 @@ A Timer() class is also used to measure the waiting and driving times.
 Develop a CLI (Command Line Interface) in Python. A welcome message must be displayed at startup, showing the app options.
 
 Features to be implemented:
-- Start a new ride.
-- Calculate fare for the time the cab is waiting (2cents/min).
-- Calculate fare for the time the cab is driving (5cents/min).
-- Finish a ride and show total currency amount to be charged.
-- Option to start a new ride without restarting the app.
+[X] Start a new ride.
+[X] Calculate fare for the time the cab is waiting (2cents/min).
+[X] Calculate fare for the time the cab is driving (5cents/min).
+[X] Finish a ride and show total currency amount to be charged.
+[X] Option to start a new ride without restarting the app.
   
 🟡 **MEDIUM**
 
-- Add an option to change current fees.
-- Keep record of historical rides in a .csv file
-- Unit tests with pytest added.
+[ ] Log system for tracing code.
+[X] Add an option to change current fees.
+[X] Keep record of historical rides in a .csv file
+[X] Unit tests with pytest added.
  
 🟠 **ADVANCED**
 
-- Refactor code to use OOP approach (part of it at least): Ride() and Timer() class are added and used in the code.
-- Authentication required and users management.
+[X] Refactor code to use OOP approach (part of it at least): Ride() and Timer() class are added and used in the code.
+[X] Authentication required and users management.
+[X] Develop GUI
   
 🔴 **EXPERT**
 
-- None achieved 😓
+None achieved 😓
+[] DB integration
+[] Docker the app
+[] Web version implementation
  
 🛠️ **TOOLS**
 
