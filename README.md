@@ -27,7 +27,7 @@ Develop a CLI (Command Line Interface) in Python. A welcome message must be disp
 Features to be implemented:
 - Start a new ride.
 - Calculate fare for the time the cab is waiting (2cents/min).
-- Calculate fare for the time the cab is driving (5cents/min.
+- Calculate fare for the time the cab is driving (5cents/min).
 - Finish a ride and show total currency amount to be charged.
 - Option to start a new ride without restarting the app.
   
@@ -40,6 +40,7 @@ Features to be implemented:
 🟠 **ADVANCED**
 
 - Refactor code to use OOP approach (part of it at least): Ride() and Timer() class are added and used in the code.
+- Authentication required and users management.
   
 🔴 **EXPERT**
 

@@ -4,33 +4,32 @@ import os
 import pandas as pd
 from auth import authenticate_user
 import getpass
+import user_session as us
 
 #Displays last 3 rides
-def display_last_rides(filename):
+def get_last_rides():
     Rides = []
     try:
-        df = pd.read_csv(filename)
+        df = pd.read_csv(us.filename)
     except:
-        os.system('cls')
-        print(txt_error_reading_data)
-        print(txt_press_enter)
-        input()
+        return False
     if not df.empty:
         df = df.sort_index(ascending=False)
         print(f'{txt_last_drives}')
         print(f'{df}')
+        return True
 
 #Displays current drive data
-def display_drive(ride):
-    print(f'{txt_ride_start} {formatTime(ride.startTime)}\n{txt_current_time} {formatTime(time.time())}\n{txt_run_length} {round(ride.driveMeter,2)} {txt_sec}\n{txt_wait_length} {round(ride.waitMeter,2)} {txt_sec}\n')
+def display_drive():
+    print(f'{txt_ride_start} {formatTime(us.currentRide.startTime)}\n{txt_current_time} {formatTime(time.time())}\n{txt_run_length} {round(us.currentRide.driveMeter,2)} {txt_sec}\n{txt_wait_length} {round(us.currentRide.waitMeter,2)} {txt_sec}\n')
 
 #Calculates total fare
-def total_fare(ride, waitfee, drivefee):
-          return(round((ride.driveMeter * drivefee) + (ride.waitMeter * waitfee),2))
+def total_fare():
+          return(round((us.currentRide.driveMeter * us.drivefee) + (us.currentRide.waitMeter * us.waitfee),2))
 
 #Displays fees
-def display_fees(waitfee, drivefee):
-    print(f'{txt_current_drive_fee:} {drivefee}\t{txt_current_wait_fee:} {waitfee}\n')
+def display_fees():
+    print(f'{txt_current_drive_fee:} {us.drivefee}\t{txt_current_wait_fee:} {us.waitfee}\n')
 
 # Def formatTime. Convert float time values to HH:MM:SS format
 def formatTime(t):
@@ -39,17 +38,17 @@ def formatTime(t):
   return(formatted_time)
 
 #Save ride data to file
-def save_data(currentRide,filename):
+def save_data():
     # Create a DataFrame
     data = []
-    data.append([formatTime(currentRide.startTime), formatTime(currentRide.endTime), currentRide.driveMeter, currentRide.waitMeter, currentRide.Fare])
+    data.append([formatTime(us.currentRide.startTime), formatTime(us.currentRide.endTime), us.currentRide.driveMeter, us.currentRide.waitMeter, us.currentRide.Fare])
     # Convert list to DataFrame
     df = pd.DataFrame(data, columns=['StartTime', 'EndTime', 'DriveMeter', 'WaitMeter', 'Fare'])
     try:
         if os.path.exists('rides.csv'):
             df.to_csv('rides.csv', mode='a', header=False, index=False)
         else:
-            df.to_csv(filename, index=False)
+            df.to_csv(us.filename, index=False)
     except:
         os.system('cls')
         print(txt_error_saving_data)
@@ -60,9 +59,12 @@ def save_data(currentRide,filename):
 def login():
     global currentUser
     username = input(f'{txt_enter_username} ')
-    currentUser = username
     password = getpass.getpass(f'{txt_enter_password} ')
-    return authenticate_user(username, password)
+    if authenticate_user(username, password):
+        us.currentUser = username
+        return True
+    else:
+        return False
 
 def logo_display():
     os.system('cls')

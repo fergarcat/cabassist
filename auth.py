@@ -18,7 +18,6 @@ def register_user(username, password):
     users = load_users()
     if username in users:
         return "El usuario ya existe."
-    
     hashed = bcrypt.hashpw(password.encode(), bcrypt.gensalt())
     users[username] = hashed.decode()
     save_users(users)
@@ -30,9 +29,25 @@ def authenticate_user(username, password):
         return False
     return bcrypt.checkpw(password.encode(), users[username].encode())
 
+def delete_user(username):
+    users = load_users()
+    if username in users:
+        del users[username]  # Eliminar el usuario del diccionario
+        save_users(users)  # Guardar los cambios en users.json
+
+def list_users():
+    users = load_users()
+    if users:
+        print("Registered users:")
+        for user in users.keys():
+            print(f"- {user}")
+    else:
+        print("No users found.")
+
 
 ## Para crear el usuario admin
 # usr = input("Nuevo usuario: ")
 # pwd = input("Nueva contraseña: ")
 # print(register_user(usr, pwd))
+
 
